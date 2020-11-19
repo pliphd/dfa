@@ -423,6 +423,9 @@ end
 end
 
 function saveFit(fitResult, outdir)
+if isempty(fitResult)
+    return;
+end
 filename = fullfile(outdir, "fitResults.csv");
 if exist(filename, 'file') == 2
     fid = fopen(filename, 'a');
