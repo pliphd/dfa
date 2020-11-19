@@ -169,15 +169,6 @@ classdef mydfa < handle
             
             plotName = this.fluctuationFunction.fileName;
             for iP = 1:length(plotName)
-                currentResult     = this.fitResult(this.fitResult.filename == plotName(iP), :);
-                if isempty(currentResult)
-                    continue;
-                end
-                
-                SpecStruc.Region  = [currentResult.minscale currentResult.maxscale] * 60 / SpecStruc.Epoch;
-                SpecStruc.Alpha   = currentResult.alpha;
-                SpecStruc.Interse = currentResult.intercept;
-                
                 if saveit
                     savedir = fullfile(outdir, plotName(iP)+".jpg");
                 else
@@ -250,6 +241,22 @@ classdef mydfa < handle
                 
                 hf.actiAxis.Layer = 'top';
                 hf.shallowAxis.Layer = 'top';
+                
+                % show dfa
+                if isempty(this.fitResult)
+                    drawnow;
+                    continue;
+                end
+                
+                currentResult = this.fitResult(this.fitResult.filename == plotName(iP), :);
+                if isempty(currentResult)
+                    drawnow;
+                    continue;
+                end
+                
+                SpecStruc.Region  = [currentResult.minscale currentResult.maxscale] * 60 / SpecStruc.Epoch;
+                SpecStruc.Alpha   = currentResult.alpha;
+                SpecStruc.Interse = currentResult.intercept;
                 
                 % show DFA
                 PlotDFA(this.fluctuationFunction.timeScale{iP}, this.fluctuationFunction.fluctuationFunction{iP}, hf.dfaAxis, SpecStruc, plotType, saveit, savedir);
