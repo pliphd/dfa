@@ -225,7 +225,7 @@ classdef mydfa < handle
                 hf.actiAxis.Toolbar.Visible    = 'on';
                 
                 % add quality info
-                gap = DetConstantOne(~this.fluctuationFunction.isNotGap{iP});
+                gap = detConstantOne(~this.fluctuationFunction.isNotGap{iP});
                 for iG = 1:size(gap, 1)
                     item = gap(iG, :);
                     patch(hf.actiAxis, 'XData', ...
