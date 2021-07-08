@@ -261,6 +261,25 @@ classdef mydfa < handle
                 % show DFA
                 PlotDFA(this.fluctuationFunction.timeScale{iP}, this.fluctuationFunction.fluctuationFunction{iP}, hf.dfaAxis, SpecStruc, plotType, saveit, savedir);
                 drawnow;
+                
+                % link dfa and dfaShallow
+                linkaxes([hf.dfaShallowAxis, hf.dfaAxis], 'x');
+                
+                % copy obj to shallow since log scale sometimes make the
+                % XLim different visually (0 is way left but if with obj, 0
+                % is not shown
+                copyobj(allchild(hf.dfaAxis), hf.dfaShallowAxis);
+                
+                % color none
+                allc = allchild(hf.dfaShallowAxis);
+                set(allc, 'Color', 'none');
+                set(allc(strcmpi(get(allc, 'Type'), 'line')), 'Marker', 'none');
+                
+                hf.dfaShallowAxis.XScale = hf.dfaAxis.XScale;
+                hf.dfaShallowAxis.XTick  = hf.dfaAxis.XTick;
+                hf.dfaShallowAxis.XMinorTick = hf.dfaAxis.XMinorTick;
+                hf.dfaShallowAxis.XTickLabel = string(hf.dfaAxis.XTick * SpecStruc.Epoch / 60);
+                hf.dfaShallowAxis.XLim   = hf.dfaAxis.XLim;
             end
         end
     end
