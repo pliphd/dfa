@@ -280,6 +280,10 @@ classdef mydfa < handle
                 hf.dfaShallowAxis.XMinorTick = hf.dfaAxis.XMinorTick;
                 hf.dfaShallowAxis.XTickLabel = string(hf.dfaAxis.XTick * SpecStruc.Epoch / 60);
                 hf.dfaShallowAxis.XLim   = hf.dfaAxis.XLim;
+                
+                % labels
+                xlabel(hf.dfaAxis, 'time scale (points)');
+                xlabel(hf.dfaShallowAxis, 'time scale (min)');
             end
         end
     end
